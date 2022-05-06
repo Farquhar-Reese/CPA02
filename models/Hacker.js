@@ -3,14 +3,15 @@ const mongoose = require( 'mongoose' );
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
-var courseSchema = Schema( {
+var hackerSchema = Schema( {
     secretID: Number,
     securityClierence: Number,
-    victims: [String],
-    completedJobs: [String],
+    victims: Number,
+    completedJobs: Number,
     expierienceLevel: Number,
     speciality: String,
     price: Number,
+    instructor: Boolean
 } );
 
 module.exports = mongoose.model( 'Hacker', hackerSchema );

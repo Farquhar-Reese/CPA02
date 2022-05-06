@@ -21,6 +21,7 @@ const axios = require("axios")
 const ToDoItem = require("./models/ToDoItem")
 const Course = require('./models/Course')
 const Schedule = require('./models/Schedule')
+const Hacker = require('./models/Hacker')
 
 // *********************************************************** //
 //  Loading JSON datasets
@@ -34,7 +35,7 @@ const courses = require('./public/data/courses20-21.json')
 
 const mongoose = require( 'mongoose' );
 //const mongodb_URI = 'mongodb://localhost:27017/cs103a_todo'
-const mongodb_URI = 'mongodb+srv://cs_sj:BrandeisSpr22@cluster0.kgugl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const mongodb_URI = 'mongodb+srv://blob:<password>@cluster0.971e3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 //mongodb+srv://cs103a:<password>@cluster0.kgugl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
 mongoose.connect( mongodb_URI, { useNewUrlParser: true, useUnifiedTopology: true } );
@@ -302,6 +303,49 @@ app.post('/courses/byInst',
     res.render('courselist')
   }
 )
+
+
+async (req,res,next) => {
+  const {subject} = req.body;
+  const courses = await Course.find({subject:subject,independent_study:false}).sort({term:1,num:1,section:1})
+  
+  res.locals.courses = courses
+  res.locals.strTimes = courses.strTimes
+  //res.json(courses)
+  res.render('courselist')
+}
+app.post('/hacker/bySecretID',
+  // show courses taught by a faculty send from a form
+  async (req,res,next) => {
+    const userid = req.body.secretID;
+    const hackerList = 
+       await Hacker
+               .find({secretID:secretID,instructor:false})
+               .sort({price:1})
+    //res.json(courses)
+    res.locals.courses = hackerList
+    res.locals.strTimes = hackerList.expierienceLevel
+    res.render('courselist')
+  }
+)
+
+app.post('/hacker/byInstHackers',
+  // show courses taught by a faculty send from a form
+  async (req,res,next) => {
+    const instructor = req.body.instructor;
+    const courses = 
+       await Course
+               .find({instructor:email,independent_study:false})
+               .sort({term:1,num:1,section:1})
+    //res.json(courses)
+    res.locals.courses = courses
+    res.locals.strTimes = courses.strTimes
+    res.render('courselist')
+  }
+)
+
+
+
 
 app.post('/courses/byKeyword',
   //show courses that contain a keyword

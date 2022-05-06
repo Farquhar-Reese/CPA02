@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
 var hackerSchema = Schema( {
-    secretID: Number,
+    secretID: String,
     securityClierence: Number,
     victims: Number,
     completedJobs: Number,

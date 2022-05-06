@@ -1,17 +1,17 @@
-<% if (courses.length==0){%>
+<% if (hacker.length==0){%>
 
-    There are no courses currently in your schedule.
+    There are no Hackers that are detactable at the moment. 
   
-  <% } else  if (courses==null) { %>
+  <% } else  if (hacker==null) { %>
   
-    There are no courses currently in your schedule.
+    There are no Hackers that are detactable at the moment. 
   
-  <% } else if (courses.length>0) { %>
+  <% } else if (hacker.length>0) { %>
   
       <h2 class="mt-5">Courses in your schedule: </h2>
   
       <div class="d-flex flex-wrap  overflow-scroll">
-          <% for (course of courses) {%>
+          <% for (hack of hacker) {%>
               <div class="p-3 m-3 border border-danger bg-light" style="max-width: 30vw;">
                   
                   <br> 
@@ -19,38 +19,19 @@
                    X
                   </a>
                   <div style="font-weight: 600; ">
-                    <%= course.name %>
+                    <%= hacker.secretID %>
                   </div>
                   <hr>
                   <div class="d-flex flex-wrap  overflow-wrap">
                     <div class="p-1 m-1">
-                        <%= course['subject'] %>
-                        <%= course.coursenum %>
+                        <%= hacker.securityClierence %>
+                        <%= hacker.completedJobs %>
                     </div>
                     <div class="p-1 m-1">
-                        Term:  <%= course.term %>
-                    </div>
-                    <div class="p-1 m-1">
-                        <% if (course.limit > course.enrolled) {%> 
-                            You are 1 student of <%= course.enrolled %> in the class. 
-                        <%} else {%>
-                            Course limit of: <%= course.limit %> students exceeded. You are currently on a waitlist of <%= course.waiting %> students.
-                            <%}%>
+                        Teir:  <%= hacker.expierienceLevel %>
                     </div>
                     <div class="p-1 m-1"> 
-                        <%= course.instructor[1] %> will be your professor! 
-                    </div>
-                    <div class="p-1 m-1"> 
-                        The meeting times for your course will be: 
-                    </div>
-                    <div class="p-1 m-1"> 
-                        <%= course.strTimes%>
-                    </div>
-                    <div class="p-1 m-1"> 
-                        There are <%= course.enrolled%> students enrolled!
-                     </div>
-                    <div class="p-1 m-1"> 
-                       With <%= course.waiting%> students on the waitlist!
+                       It is <%= hacker.instructor %> that this person can be your professor 
                     </div>
                   </div>
                   

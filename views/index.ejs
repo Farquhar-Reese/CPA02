@@ -12,22 +12,21 @@
     </p>
     
     <% if (true || loggedIn) {%>  
-        <form method="post" action="/courses/bySubject">
+        <form method="post" action="/hacker/bySecretID">
             Show list of Hackers:
-              <input type="text" name="subject" 
+              <input type="text" name="secretID" 
                      placeholder="e.g. 4ChanDude69">
             <input type="submit">
         </form>
         <br>
-        <form method="post" action="/courses/by">
-        <form method="post" action="/courses/byInst">
+        <form method="post" action="/hacker/byInstHackers">
             Show list of individuals who can teach you the way of hacking:
-            <input type="text" name="email" 
+            <input type="text" name="instructor" 
                    placeholder="e.g. tjhickey">
             <input type="submit">
         </form>
         <br>
-        <a href="/schedule/show">Show Schedule</a>
+        <a href="/schedule/show">List All Registered Hackers</a>
         <br>
         <br>
         <img src = "images/hackerBoi.jpg" />

@@ -1,40 +1,38 @@
 
 
+
+<div class="p-3 m-3 border border-danger bg-dark text-light">
     <div class="jumbotron">
-        <h1>PA03: Course Finder Fall20-Spr21 </h1>
+        <h1>Hacker Finder </h1>
         <p></p>
     </div>
 
-    <p class="p-3 m-3 border border-primary bg-light">
-        The goal of this assignment is to write an app that will let
-        students pick their courses for the year. Since we don't have 
-        the data for this year (due to workday issues), we will use the 
-        2020-2021 Academic year data. You must signup or login to see
-        the courses and create your schedule.
+    <p class="p-3 m-3 border border-danger bg-dark text-light">
+        Trying to hack into secure systems? You're in the right place... Find the ideal hacker for you!
     </p>
     
     <% if (true || loggedIn) {%>  
         <form method="post" action="/courses/bySubject">
-            Show Courses by Subject: 
+            Show list of Hackers:
               <input type="text" name="subject" 
-                     placeholder="e.g. COSI">
+                     placeholder="e.g. 4ChanDude69">
             <input type="submit">
         </form>
         <br>
         <form method="post" action="/courses/by">
         <form method="post" action="/courses/byInst">
-            Show Courses by Instructor Email: 
+            Show list of individuals who can teach you the way of hacking:
             <input type="text" name="email" 
                    placeholder="e.g. tjhickey">
             <input type="submit">
         </form>
         <br>
-        <form method = "post" action = "/courses/byKeyword">
-            Show Course by byKeyword
-            <input type ="text" name = "keyword" placeholder="e.g. Data">
-            <input type = "submit">
-        </form>
         <a href="/schedule/show">Show Schedule</a>
+        <br>
+        <br>
+        <img src = "images/hackerBoi.jpg" />
     <% } %>
+
+</div>
 
 

@@ -7,8 +7,10 @@ var courseSchema = Schema( {
     secretID: Number,
     securityClierence: Number,
     victims: [String],
+    completedJobs: [String],
     expierienceLevel: Number,
     speciality: String,
+    price: Number,
 } );
 
 module.exports = mongoose.model( 'Hacker', hackerSchema );

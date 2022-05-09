@@ -21,7 +21,7 @@ const axios = require("axios")
 const ToDoItem = require("./models/ToDoItem")
 const Course = require('./models/Course')
 const Schedule = require('./models/Schedule')
-const Hacker = require('./models/Hacker')
+const Hacker = require('./models/Hackers')
 
 // *********************************************************** //
 //  Loading JSON datasets
@@ -35,7 +35,7 @@ const courses = require('./public/data/courses20-21.json')
 
 const mongoose = require( 'mongoose' );
 //const mongodb_URI = 'mongodb://localhost:27017/cs103a_todo'
-const mongodb_URI = 'mongodb+srv://blob:123@cluster0.971e3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const mongodb_URI = 'mongodb+srv://blob:123@cluster0.971e3.mongodb.net/Hackers?retryWrites=true&w=majority'
 //mongodb+srv://cs103a:<password>@cluster0.kgugl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
 mongoose.connect( mongodb_URI, { useNewUrlParser: true, useUnifiedTopology: true } );
@@ -238,8 +238,10 @@ function time2str(time){
 app.get('/upsertDB',
   async (req,res,next) => {
     //await Course.deleteMany({})
+    
     for (hack of hacker){
       const {secretID,securityClierence,victims,completedJobs,expierienceLevel, speciality, price, instructor }=hack;
+      
       await Hacker.findOneAndUpdate({secretID,securityClierence,victims,completedJobs,expierienceLevel, speciality, price, instructor },hack,{upsert:true})
     }
     const num = await Hacker.find({}).count();
@@ -300,19 +302,54 @@ app.post('/courses/byInst',
 )
 
 
-
-app.post('/hacker/bySecretID',
+//creates a hacker
+app.post('/hacker/createNewHacker',
   // show courses taught by a faculty send from a form
   async (req,res,next) => {
-    const userid = req.body.secretID;
-    const hackerList = 
-       await Hacker
-               .find({secretID:userid})
-    //res.json(courses)
-    res.locals.hacker = hackerList
-    res.render('courselist')
+    const testHacker = new Hacker({
+      secretID: "poophead",
+      securityClierence: 69,
+      victims: 690,
+      completedJobs: 6900,
+      expierienceLevel: 420,
+      speciality: "nonsense",
+      price: 4200,
+      instructor: false
+    });
+    await testHacker.save()
+    res.json(testHacker)
   }
 )
+
+
+app.post('/hacker/secretID',
+  // show courses taught by a faculty send from a form
+  async (req,res,next) => {
+    
+    const userid = req.body.secretID;
+   console.log("our hack id is:", userid)
+   const hackerData = await Hacker.find({secretID: userid})
+   res.json(hackerData)
+    //const hackerList = 
+   //    await Hacker
+    //           .find({secretID:userid})
+    //res.json(courses)
+    //res.locals.hacker = hackerList
+    //res.render('courselist')
+  }
+)
+
+app.get('/hacker/secretID',
+  async (req,res,next) => {
+    try {
+      const hackID = req.body.secretID
+      console.log("our hack id is:", hackID)
+      const hackerData = await Hacker.find({victims: 74})
+      res.json(hackerData)
+    } catch (error) {
+      next(error)
+    }
+  })
 
 app.post('/hacker/byInstHackers',
   // show courses taught by a faculty send from a form
@@ -371,27 +408,15 @@ app.get('/schedule/show',
   // show the current user's schedule
   async (req,res,next) => {
     try{
-      const userId = res.locals.user._id;
-      const courseIds = 
-         (await Schedule.find({userId}))
-                        .sort(x => x.term)
-                        .map(x => x.courseId)
-      res.locals.courses = await Course.find({_id:{$in: courseIds}})
-      res.render('schedule')
-    } catch(e){
-      next(e)
-    }
-  }
-)
-
-app.get('/schedule/show',
-  // show the current user's schedule
-  async (req,res,next) => {
-    try{
-      const userId = res.locals.user._id;
-      const courseIds = 
-         (await Hacker .find())
-      res.render('schedule')
+      const lookup = await Hacker.find({})
+      res.json(lookup)
+      //const userId = res.locals.user._id;
+      //const courseIds = 
+       //  (await Schedule.find({userId}))
+      //                  .sort(x => x.term)
+      //                  .map(x => x.courseId)
+      //res.locals.courses = await Course.find({_id:{$in: courseIds}})
+      //res.render('schedule')
     } catch(e){
       next(e)
     }

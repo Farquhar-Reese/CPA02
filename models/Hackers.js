@@ -14,4 +14,4 @@ var hackerSchema = Schema( {
     instructor: Boolean
 } );
 
-module.exports = mongoose.model( 'Hacker', hackerSchema );
+module.exports = mongoose.model( 'hacker', hackerSchema );

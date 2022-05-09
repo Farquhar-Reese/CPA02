@@ -1,7 +1,8 @@
 /*
   app.js -- This creates an Express webserver with login/register/logout authentication
 */
-
+const dotenv = require('dotenv')
+dotenv.config()
 // *********************************************************** //
 //  Loading packages to support the server
 // *********************************************************** //
@@ -35,7 +36,7 @@ const courses = require('./public/data/courses20-21.json')
 
 const mongoose = require( 'mongoose' );
 //const mongodb_URI = 'mongodb://localhost:27017/cs103a_todo'
-const mongodb_URI = 'mongodb+srv://blob:123@cluster0.971e3.mongodb.net/Hackers?retryWrites=true&w=majority'
+const mongodb_URI = process.env.mongoURL
 //mongodb+srv://cs103a:<password>@cluster0.kgugl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
 mongoose.connect( mongodb_URI, { useNewUrlParser: true, useUnifiedTopology: true } );

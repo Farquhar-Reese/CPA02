@@ -330,7 +330,8 @@ app.post('/hacker/secretID',
     const userid = req.body.secretID;
    console.log("our hack id is:", userid)
    const hackerData = await Hacker.find({secretID: userid})
-   res.json(hackerData)
+   res.locals.hacker = hackerData
+    res.render('courselist')
     //const hackerList = 
    //    await Hacker
     //           .find({secretID:userid})
@@ -352,10 +353,9 @@ app.get('/hacker/secretID',
     }
   })
 
-app.post('/hacker/byInstHackers',
+app.get('/hacker/byInstHackers',
   // show courses taught by a faculty send from a form
   async (req,res,next) => {
-    const instructor = req.body.instructor;
     const hackerList = 
        await Hacker
                .find({instructor:true})
@@ -409,28 +409,20 @@ app.get('/schedule/show',
   // show the current user's schedule
   async (req,res,next) => {
     try{
-      const lookup = await Hacker.find({})
-      res.json(lookup)
-      //const userId = res.locals.user._id;
-      //const courseIds = 
-       //  (await Schedule.find({userId}))
-      //                  .sort(x => x.term)
-      //                  .map(x => x.courseId)
-      //res.locals.courses = await Course.find({_id:{$in: courseIds}})
-      //res.render('schedule')
+      res.locals.hacker = await Hacker.find({})
+      res.render('schedule')
     } catch(e){
       next(e)
     }
   }
 )
 
-app.get('/schedule/remove/:courseId',
+app.get('/schedule/remove/:secretID',
   // remove a course from the user's schedule
   async (req,res,next) => {
     try {
-      await Schedule.remove(
-                {userId:res.locals.user._id,
-                 courseId:req.params.courseId})
+      await Hacker.remove(
+                {secretID:res.params.secretID})
       res.redirect('/schedule/show')
 
     } catch(e){

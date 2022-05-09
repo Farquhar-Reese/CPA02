@@ -8,30 +8,31 @@
   
   <% } else if (hacker.length>0) { %>
   
-      <h2 class="mt-5">Courses in your schedule: </h2>
+      <h2 class="mt-5">Hackers in your area: </h2>
   
       <div class="d-flex flex-wrap  overflow-scroll">
           <% for (hack of hacker) {%>
-              <div class="p-3 m-3 border border-danger bg-light" style="max-width: 30vw;">
+              <div class="p-3 m-3 border border-danger bg-dark" style="max-width: 30vw; color: white;">
                   
                   <br> 
-                  <a style="color: red; text-decoration: none;" href="/schedule/remove/<%= course._id %>"> 
-                   X
-                  </a>
                   <div style="font-weight: 600; ">
-                    <%= hacker.secretID %>
+                    <%= hack.secretID %>
                   </div>
                   <hr>
                   <div class="d-flex flex-wrap  overflow-wrap">
                     <div class="p-1 m-1">
-                        <%= hacker.securityClierence %>
-                        <%= hacker.completedJobs %>
+                        Hacker Security Clierence: <%= hack.securityClierence %>
+                        
                     </div>
                     <div class="p-1 m-1">
-                        Teir:  <%= hacker.expierienceLevel %>
+                        
+                        Hacker Completed Jobs: <%= hack.completedJobs %>
+                    </div>
+                    <div class="p-1 m-1">
+                        Teir:  <%= hack.expierienceLevel %>
                     </div>
                     <div class="p-1 m-1"> 
-                       It is <%= hacker.instructor %> that this person can be your professor 
+                       It is <%= hack.instructor %> that this person can be your professor 
                     </div>
                   </div>
                   
@@ -44,25 +45,5 @@
   <% } %>
 
 
-<!--
-<ul>
-    <% for (course of courses){%>
-        <li> 
-            <a href="/schedule/remove/<%= course._id %>">X</a>
-            <%= course['subject'] %>
-            <%= course.coursenum %>
-            <%= course.name %>
-            <%= course.term %>
-            
-        </li>
-    <% } %>
-</ul>
--->
-
-<!--
-    <pre>
-        <%= JSON.stringify(courses,null,5) %>
-    </pre>
--->
 
 
